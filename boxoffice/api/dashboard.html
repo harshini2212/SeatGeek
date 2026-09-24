@@ -283,7 +283,7 @@ loaders.treasury = async ()=>{
     <div class="grid g4">
       ${kpi('Current balance', money1(t.current_balance_usd), 'across checking + treasury')}
       ${kpi('Net / month', money(t.monthly_net_usd), 'in '+money(t.monthly_inflow_usd)+' · out '+money(t.monthly_outflow_usd))}
-      ${kpi('Runway', (t.runway_months??'∞')+' mo', 'status '+t.status, '')}
+      ${kpi('Runway', (t.runway_months!=null?t.runway_months.toFixed(1):'∞')+' mo', 'status '+t.status, '')}
       ${kpi('Yield opportunity', money(y.incremental_annual_yield_usd)+'/yr', '~'+pct(y.mmf_apy)+' APY MMF')}
     </div>
     <h2>Cash-balance forecast (${t.forecast.length}-day horizon, 80% band)</h2>
@@ -330,7 +330,7 @@ loaders.credit = async ()=>{
       ${kpi('Probability of loss', pct(c.pd), 'PD model', '')}
       ${kpi('Risk band', c.risk_band.toUpperCase(), 'action: '+c.action.replace(/_/g,' '))}
       ${kpi('Recommended limit', money1(c.recommended_limit_usd), 'current '+money(c.current_limit_usd))}
-      ${kpi('Cash coverage', c.coverage_months.toFixed(1)+' mo', c.runway_months+' mo runway')}
+      ${kpi('Cash coverage', c.coverage_months.toFixed(1)+' mo', (c.runway_months!=null?c.runway_months.toFixed(1):'∞')+' mo runway')}
     </div>
     <h2>Recommendation</h2>
     <div class="card">

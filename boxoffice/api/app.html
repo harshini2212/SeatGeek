@@ -55,7 +55,7 @@
   .topbar{display:flex;align-items:center;gap:10px;padding:11px 26px;background:var(--panel);border-bottom:1px solid var(--hair);position:sticky;top:0;z-index:12}
   .topbar .sp{flex:1;min-width:6px}
   main{flex:1;min-width:0}
-  /* ---------- SeatGeek AI ask block ---------- */
+  /* ---------- SeatGeek Intelligence ask block ---------- */
   .aiask{margin-top:14px;background:linear-gradient(160deg,#fff 40%,#f1f6ff);border:1px solid var(--aibd);border-radius:14px;padding:13px 14px}
   .aiask-h{display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;letter-spacing:-.2px}
   .aiask-h .aidiamond{color:var(--ai);font-size:15px}
@@ -120,6 +120,10 @@
   h1 svg,h2 svg,h3 svg{width:16px;height:16px;flex:none}
   h3{font-size:14px;font-weight:600;margin:0 0 8px}
   .lede{color:var(--muted);margin:0 0 14px;font-size:13.5px}
+  /* ---------- per-page explainer panel ---------- */
+  .intro{background:var(--seatgeekbg);border:1px solid var(--seatgeekbd);border-left:3px solid var(--seatgeek);
+    border-radius:var(--r2);padding:11px 15px;margin:2px 0 18px}
+  .intro p{margin:0;color:var(--ink);opacity:.82;font-size:13px;line-height:1.62}
   .muted{color:var(--muted)}.green{color:var(--green)}.red{color:var(--red)}
   /* ---------- stat cards ---------- */
   .strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:13px}
@@ -357,13 +361,14 @@
       <div class="pghead">
         <div class="tt"><div class="ttl" id="ttl">Home</div><div class="sub" id="sub">Command center</div></div>
       </div>
+      <div class="intro" id="intro" style="display:none"></div>
       <div class="page" id="page"><div class="spin">loading…</div></div>
     </main>
   </div>
 </div>
 
 <div class="ai" id="ai">
-  <div class="h"><span class="aidiamond">◆</span> <b>SeatGeek AI</b><span class="muted" id="aiCtx"></span><span class="x" onclick="closeAI()">×</span></div>
+  <div class="h"><span class="aidiamond">◆</span> <b>SeatGeek Intelligence</b><span class="muted" id="aiCtx"></span><span class="x" onclick="closeAI()">×</span></div>
   <div class="body" id="aiBody"></div>
 </div>
 <div class="cmdk" id="cmdk" onclick="if(event.target===this)closePalette()">
@@ -530,17 +535,17 @@ const STATE={role:'finance',personas:[],model:'claude-opus-4-8',employee:null,co
 
 // ---------- pages + nav ----------
 const PAGES={
-  home:{title:'Home',sub:'Command center',ai:'forensics',render:pgHome},
-  expenses:{title:'Expenses',sub:'Transactions, people & receipts',ai:'forensics',render:pgExpenses},
-  cards:{title:'Cards',sub:'Card portfolio',ai:'forensics',render:pgCards},
-  payables:{title:'Payables',sub:'Bills & vendors',ai:'ap',render:pgPayables},
-  controls:{title:'Controls',sub:'Fraud, policy, budgets & close',ai:'forensics',render:pgControls},
-  treasury:{title:'Treasury',sub:'Cash, forecast & runway',ai:'treasury',render:pgTreasuryTab},
-  research:{title:'Research',sub:'Live SEC EDGAR company analysis',ai:null,render:pgResearch},
-  automation:{title:'Automation',sub:'Tasks, insights & exports',ai:'forensics',render:pgAutomation},
-  investor:{title:'Investor Room',sub:'Read-only diligence',ai:'investor_room',render:pgInvestor},
-  myspend:{title:'My Spend',sub:'Your card',ai:'my_spend',render:pgMySpend},
-  receipts:{title:'Receipts',sub:'Vision capture & match',ai:null,render:pgReceipts},
+  home:{title:'Home',sub:'Command center',intro:"BoxOffice is SeatGeek Intelligence's control center for the money-and-trust surfaces of a live-event ticketing marketplace. Focused AI agents run over a realistic company ledger — they categorize charges, audit spend policy, triage payment fraud and bot/scalper collusion rings, adjudicate chargebacks and underwrite partner &amp; seller trust. Real machine learning sits underneath: a fraud ensemble built on an entity graph, a partner-risk model and a backtested cash forecaster. Every agent decision is graded against known ground truth on a benchmark before it ships, so SeatGeek can act on real money with measured accuracy. This page rolls up the key numbers — use the sidebar to open each area, or Ask AI anywhere.",ai:'forensics',render:pgHome},
+  expenses:{title:'Expenses',sub:'Transactions, people & receipts',intro:"Every card transaction in the tenant, the people who made them and the receipts that back them. Each line is scored for fraud, checked against spend policy and auto-categorized to a GL account by the agents. Filter, sort and open any transaction to see exactly why it was flagged.",ai:'forensics',render:pgExpenses},
+  cards:{title:'Cards',sub:'Card portfolio',intro:"The corporate-card portfolio: physical and virtual cards, limits, vendor locks and status. The card-audit agent reviews utilization, dormant cards and limit headroom and proposes changes. Issuing a new card runs a propose &rarr; confirm &rarr; issue workflow with a human in the loop.",ai:'forensics',render:pgCards},
+  payables:{title:'Payables',sub:'Bills & vendors',intro:"Bills and vendors — the accounts-payable and seller/partner-payout side of the ledger. Duplicate-invoice detection, partner-concentration (HHI) risk and payment timing that captures early-pay discounts while holding cash in treasury until due. Ask AI runs the three-way match and the pay-or-hold decision, and refuses to pay anything that does not reconcile.",ai:'ap',render:pgPayables},
+  controls:{title:'Controls',sub:'Fraud, policy, budgets & close',intro:"The control layer. Payment-fraud alerts with causal explanations and detected bot/scalper collusion rings, the spend-policy rulebook (write a new policy in plain English in Policy Studio and replay it over history), budgets by category, and month-end close checks.",ai:'forensics',render:pgControls},
+  treasury:{title:'Treasury',sub:'Cash, forecast & runway',intro:"Cash position across operating cash and the marketplace settlement float, a backtested cash-flow forecast with confidence bands, runway with a liquidity-shortfall date, and the idle-cash yield opportunity. The Runway Lab runs causal what-ifs: pick an intervention and the model propagates it through the cash drivers.",ai:'treasury',render:pgTreasuryTab},
+  research:{title:'Research',sub:'Live SEC EDGAR company analysis',intro:"Live competitive &amp; partner intelligence. Pull any public live-entertainment company's as-filed SEC financials (Live Nation, MSG, Sphere, TKO, Formula 1, Vivid Seats…), recompute the ratios and accounting tie-outs, then let the agent analyze them — grounded only in the filed numbers, never invented.",ai:null,render:pgResearch},
+  automation:{title:'Automation',sub:'Tasks, insights & exports',intro:"Where the agents' output lands. An action inbox of tasks that need a decision, AI-generated insights that link back to their evidence, and scheduled exports that email a dataset on a cadence.",ai:'forensics',render:pgAutomation},
+  investor:{title:'Investor Room',sub:'Read-only diligence',intro:"A read-only diligence view for the board and investors. Every figure is tie-out-verified by the agent against the ledger, with no employee PII and no invented numbers.",ai:'investor_room',render:pgInvestor},
+  myspend:{title:'My Spend',sub:'Your card',intro:"Your own card only: recent charges, your limit, anything that was flagged and the receipts you still owe. The assistant is scoped strictly to you, so ask why something was flagged or how to fix it.",ai:'my_spend',render:pgMySpend},
+  receipts:{title:'Receipts',sub:'Vision capture & match',intro:"Receipt Autopilot. Drop a receipt image and the vision agent reads it, matches it to the card transaction, reconciles the amount and runs policy and fraud checks before filing it.",ai:null,render:pgReceipts},
   // sub-renderers referenced by wrapper tabs (not shown directly in nav)
 };
 const NAVGROUPS={
@@ -587,6 +592,7 @@ function setRole(role){
 function openPage(id){
   if(!PAGES[id])return; STATE.page=id; navGen();
   el('ttl').textContent=PAGES[id].title; el('sub').textContent=PAGES[id].sub||'';
+  const intro=el('intro'); if(PAGES[id].intro){intro.innerHTML='<p>'+PAGES[id].intro+'</p>';intro.style.display='';}else{intro.style.display='none';}
   el('nav').querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.dataset.p===id));
   el('askBtn').style.display=PAGES[id].ai?'inline-flex':'none';
   const pg=document.getElementById('page'); pg.innerHTML=skeleton();
@@ -619,7 +625,7 @@ let PAL={items:[],sel:0};
 function paletteItems(){
   const nav=Object.keys(PAGES).filter(id=>STATE.navIds.has(id)).map(id=>({grp:'Go to',label:PAGES[id].title,sub:PAGES[id].sub,icon:navIcon(id),run:()=>openPage(id)}));
   const acts=[
-    {grp:'Actions',label:'Ask SeatGeek AI',icon:'bolt',run:()=>openAI(PAGES[STATE.page]?.ai||'forensics')},
+    {grp:'Actions',label:'Ask SeatGeek Intelligence',icon:'bolt',run:()=>openAI(PAGES[STATE.page]?.ai||'forensics')},
     {grp:'Actions',label:'Research a company (SEC EDGAR)',icon:'grid',run:()=>openPage('research')},
     {grp:'Actions',label:'Export all expenses (CSV)',icon:'export',run:()=>dlUrl('/api/transactions.csv?seed=7')},
     {grp:'Actions',label:'CFO morning brief',icon:'bolt',run:()=>{openPage('home');setTimeout(genBrief,900);}},
@@ -642,7 +648,7 @@ function paletteKey(e){if(e.key==='ArrowDown'){e.preventDefault();PAL.sel=Math.m
   else if(e.key==='ArrowUp'){e.preventDefault();PAL.sel=Math.max(PAL.sel-1,0);paintPalette();scrollSel();}
   else if(e.key==='Enter'){e.preventDefault();runPalette(PAL.sel);}}
 function scrollSel(){const s=el('cmdList').querySelector('.cmditem.sel');if(s)s.scrollIntoView({block:'nearest'});}
-function createMenu(){const items=[['Issue a card',"openPage('cards')"],['Pay a bill',"SUB.payables='bills';openPage('payables')"],['Review budgets',"SUB.controls='budgets';openPage('controls')"],['Research a company',"openPage('research')"],['Schedule an export',"SUB.automation='exports';openPage('automation')"],['Ask SeatGeek AI',"openAI('forensics')"]];
+function createMenu(){const items=[['Issue a card',"openPage('cards')"],['Pay a bill',"SUB.payables='bills';openPage('payables')"],['Review budgets',"SUB.controls='budgets';openPage('controls')"],['Research a company',"openPage('research')"],['Schedule an export',"SUB.automation='exports';openPage('automation')"],['Ask SeatGeek Intelligence',"openAI('forensics')"]];
   showMenu(el('createBtn'),items.map(([l,fn])=>`<button onclick="closeMenu();${fn}">${l}</button>`).join(''));}
 function showMenu(anchor,html){const r=anchor.getBoundingClientRect();el('menuHost').innerHTML=`<div class="menu" style="top:${r.bottom+6}px;left:${r.left}px" onclick="event.stopPropagation()">${html}</div>`;setTimeout(()=>document.addEventListener('click',closeMenu,{once:true}),0);}
 function closeMenu(){el('menuHost').innerHTML='';}
@@ -745,7 +751,7 @@ async function pgHome(){
       <div class="card"><div class="ch"><h3>Spend</h3><span class="muted" style="font-size:12px">last ${d.monthly_trend.length} months</span><span class="sp"></span><span class="muted">⋯</span></div>
         ${funnelBars(funnel)}
         <div class="aiask">
-          <div class="aiask-h"><span class="aidiamond">◆</span> SeatGeek AI <span class="aiask-tag">beta</span></div>
+          <div class="aiask-h"><span class="aidiamond">◆</span> SeatGeek Intelligence <span class="aiask-tag">beta</span></div>
           <div class="aiask-sub">Ask me anything related to your spend, cash flow, cards, vendors or savings — I read your live data before answering.</div>
           <div class="askbar"><span class="aidiamond" style="font-size:16px">◆</span><input id="askData" placeholder="What would you like to explore next?" onkeydown="if(event.key==='Enter')askData(this.value||'What caused the change in spend this month?')"><button class="ai sm" onclick="askData(el('askData').value||'What caused the change in spend this month?')">Ask</button></div>
           <div class="askchips">
@@ -773,7 +779,7 @@ async function pgHome(){
     </div>
 
     <div class="brief" id="briefCard" style="margin-top:16px">
-      <div style="display:flex;align-items:center;gap:8px"><span class="aipill"><span class="aidiamond">◆</span> SeatGeek AI</span><b style="font-size:13.5px">CFO morning brief</b><span style="flex:1"></span><button class="ai sm" onclick="genBrief()"><span class="aidiamond" style="color:#fff">◆</span> Generate</button></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="aipill"><span class="aidiamond">◆</span> SeatGeek Intelligence</span><b style="font-size:13.5px">CFO morning brief</b><span style="flex:1"></span><button class="ai sm" onclick="genBrief()"><span class="aidiamond" style="color:#fff">◆</span> Generate</button></div>
       <div id="briefBody" class="muted" style="font-size:12.5px;margin-top:8px">Claude reads today's live spend data — cash, burn, fraud, savings — and writes your brief with actions.</div>
     </div>
 
@@ -919,7 +925,7 @@ async function companyProfile(ticker){
 
      <h2>How SeatGeek would improve this <span class="aipill"><span class="aidiamond">◆</span> AI</span> <span class="muted" style="text-transform:none;letter-spacing:0;font-weight:400">generated for ${esc(p.ticker)} on open</span></h2>
      <div id="resImprove"><div class="brief"><span class="spin" style="padding:2px">Claude is drafting the improvement plan…</span></div></div>
-     <div class="aiask" style="margin-top:12px"><div class="aiask-h"><span class="aidiamond">◆</span> Ask SeatGeek AI about ${esc(p.ticker)}</div><div class="aiask-sub">Ask me anything about this company's spend, filings or how we'd optimize it.</div><div class="askbar"><span class="aidiamond" style="font-size:16px">◆</span><input id="coAsk" placeholder="e.g. Where is the fastest 90-day saving?" onkeydown="if(event.key==='Enter')askData('For '+${q1(p.ticker)}+' ('+${q1(p.name)}+'): '+this.value)"><button class="ai sm" onclick="askData('For '+${q1(p.ticker)}+' ('+${q1(p.name)}+'): '+(el('coAsk').value||'What is the single highest-impact spend change and why?'))">Ask</button></div></div>
+     <div class="aiask" style="margin-top:12px"><div class="aiask-h"><span class="aidiamond">◆</span> Ask SeatGeek Intelligence about ${esc(p.ticker)}</div><div class="aiask-sub">Ask me anything about this company's spend, filings or how we'd optimize it.</div><div class="askbar"><span class="aidiamond" style="font-size:16px">◆</span><input id="coAsk" placeholder="e.g. Where is the fastest 90-day saving?" onkeydown="if(event.key==='Enter')askData('For '+${q1(p.ticker)}+' ('+${q1(p.name)}+'): '+this.value)"><button class="ai sm" onclick="askData('For '+${q1(p.ticker)}+' ('+${q1(p.name)}+'): '+(el('coAsk').value||'What is the single highest-impact spend change and why?'))">Ask</button></div></div>
 
      <h2>Deploy agentic workflow <span class="aipill"><span class="aidiamond">◆</span> multi-step agent</span></h2>
      <div class="card">
@@ -968,11 +974,11 @@ async function deployAgent(ticker){
 }
 function mdLite(t){return esc(t||'').replace(/^\s*---+\s*$/gm,'<hr style="border:none;border-top:1px solid var(--line);margin:8px 0">').replace(/^#{1,4}\s*(.+)$/gm,'<b>$1</b>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n{2,}/g,'<br><br>').replace(/\n/g,'<br>');}
 function prettyTool(t){return ({pull_spend_breakdown:'Pulled spend breakdown',find_duplicate_saas:'Consolidated duplicate SaaS',benchmark_vendor_rates:'Benchmarked vendor rates & rebates',draft_policy_controls:'Drafted real-time spend controls',deploy_treasury_sweep:'Deployed idle-cash treasury sweep',project_total_savings:'Projected total annual savings'})[t]||t;}
-// ---------- Cards: SeatGeek AI + agentic card audit ----------
+// ---------- Cards: SeatGeek Intelligence + agentic card audit ----------
 function cardsAiSection(){return `
-     <h2>SeatGeek AI · card intelligence <span class="aipill"><span class="aidiamond">◆</span> AI</span></h2>
+     <h2>SeatGeek Intelligence · cards <span class="aipill"><span class="aidiamond">◆</span> AI</span></h2>
      <div class="aiask">
-       <div class="aiask-h"><span class="aidiamond">◆</span> Ask SeatGeek AI about your cards</div>
+       <div class="aiask-h"><span class="aidiamond">◆</span> Ask SeatGeek Intelligence about your cards</div>
        <div class="aiask-sub">Ask anything about card spend, limits, policy or specific transactions — I read the live card data before answering.</div>
        <div class="askbar"><span class="aidiamond" style="font-size:16px">◆</span><input id="cardAsk" placeholder="e.g. Which cards are riskiest right now?" onkeydown="if(event.key==='Enter')askData(this.value||'Which cards should I review first, and why?')"><button class="ai sm" onclick="askData(el('cardAsk').value||'Which cards should I review first, and why?')">Ask</button></div>
        <div class="askchips">
