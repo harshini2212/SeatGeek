@@ -153,7 +153,7 @@ el('nav').addEventListener('click', e=>{
 
 // ---- boot / mode ----
 (async()=>{
-  try{ const r=await jget('/'); el('badge').className='badge'+(r.live_models?' live':'');
+  try{ const r=await jget('/api/info'); el('badge').className='badge'+(r.live_models?' live':'');
     el('modeTxt').textContent = r.live_models?'LIVE Claude models':'offline + simulated models'; }catch(e){}
   loaders.overview(); loaded.overview=true;
 })();
